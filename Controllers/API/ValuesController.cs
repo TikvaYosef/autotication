@@ -18,23 +18,19 @@ namespace autotication.Controllers.API
 
             Book[] arrayofbooks = new Book[]
                {
-                new Book("BookOne", "WritterOne", 2010, random.Next(100, 500)),
-                new Book("BookTwo", "WritterTwo", 2000, random.Next(100, 500)),
-                new Book("BookThree", "WritterThree", 2003, random.Next(100, 500)),
-                new Book("BookFour", "WritterFour", 2004, random.Next(100, 500)),
-                new Book("BookFive", "WritterFive", 2005, random.Next(100, 500)),
-                new Book("BookSix", "WritterSix", 2006, random.Next(100, 500)),
-                new Book("BookSeven", "WritterSeven", 2007, random.Next(100, 500)),
-                new Book("BookEigth", "WritterEigth", 2008, random.Next(100, 500))
+                new Book("BookOne", "WritterOne", 2010, random.Next(100, 500),0),
+                new Book("BookTwo", "WritterTwo", 2000, random.Next(100, 500),1),
+                new Book("BookThree", "WritterThree", 2003, random.Next(100, 500),2),
+                new Book("BookFour", "WritterFour", 2004, random.Next(100, 500),3),
+                new Book("BookFive", "WritterFive", 2005, random.Next(100, 500),4),
+                new Book("BookSix", "WritterSix", 2006, random.Next(100, 500),5),
+                new Book("BookSeven", "WritterSeven", 2007, random.Next(100, 500),6),
+                new Book("BookEigth", "WritterEigth", 2008, random.Next(100, 500),7)
                };
 
             listofbooks.AddRange(arrayofbooks);
 
         }
-
-
-
-
 
 
         // GET: api/Values
@@ -64,13 +60,31 @@ namespace autotication.Controllers.API
         }
 
         // PUT: api/Values/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody] Book value)
         {
+            books();
+             Book samebook = listofbooks.Find(item => item.id == id);
+            listofbooks[listofbooks.IndexOf(samebook)].name = value.name;
+            listofbooks[listofbooks.IndexOf(samebook)].author = value.author;
+            listofbooks[listofbooks.IndexOf(samebook)].year = value.year;
+            listofbooks[listofbooks.IndexOf(samebook)].numOfPages = value.numOfPages;
+     
+
+
+            listofbooks.Add(samebook);
+
+            return Ok(listofbooks);
         }
 
         // DELETE: api/Values/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            books();
+            Book samebook = listofbooks.Find(item => item.id == id);
+            listofbooks.Remove(samebook);
+            return Ok(listofbooks);
+
+
 
         }
     }

@@ -12,15 +12,15 @@ namespace autotication.Models
         public int year;
         public int numOfPages;
         public int id;
-        public int counter = 0;
+        
 
-        public Book(string name, string author, int year, int numOfPages)
+        public Book(string name, string author, int year, int numOfPages,int id)
         {
             this.name = name;
             this.author = author;
             this.year = year;
             this.numOfPages = numOfPages;
-            this.id = counter++;
+            this.id = id;
 
         }
     }
